@@ -87,7 +87,6 @@ export default async function handler(
           domain: process.env.DOMAIN,
           path: "/",
           maxAge: 60 * 60, //1 hour
-          secure: process.env.NODE_ENV !== 'development',
           sameSite: "lax",
         })
     
