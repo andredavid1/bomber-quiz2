@@ -50,15 +50,15 @@ export default async function handler(
         return res.status(200).json({ success: true, payload: userLogged });
       } catch (err: any) {
         if(err instanceof AppError){
-          res.status(err.statusCode).json({ success: false, error: err.message})
+          return res.status(err.statusCode).json({ success: false, error: err.message})
         } else{
-          res.status(500).json({ success: false, error: 'Erro na conexão com o servidor.' });
+          return res.status(500).json({ success: false, error: 'Erro na conexão com o servidor.' });
         }
       }
       break;
   
     default:
-      res.status(405).json({ success: false, error: 'Método não suportado.'})
+      return res.status(405).json({ success: false, error: 'Método não suportado.'})
       break;
   }  
 }
