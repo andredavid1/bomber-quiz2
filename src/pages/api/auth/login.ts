@@ -84,7 +84,7 @@ export default async function handler(
         setCookies("tokenBomberQuiz", jwt, {
           req,
           res,
-          domain: "localhost",
+          domain: process.env.DOMAIN,
           path: "/",
           maxAge: 60 * 60, //1 hour
           httpOnly: process.env.NODE_ENV !== 'development',
