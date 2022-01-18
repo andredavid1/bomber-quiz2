@@ -33,6 +33,11 @@ export default async function handler(
 
         if(!tokenBomberQuiz) {
           throw new AppError('Acesso não autorizado.', 401);
+          if(res){
+            res.writeHead(401, { Location: '/login' })
+            res.end();
+            return
+          }
         }
 
         if(!jwtSecret) {
