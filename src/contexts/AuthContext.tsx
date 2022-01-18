@@ -64,6 +64,7 @@ export const AuthProvider = ({children}: IAuthProviderProps) => {
 
       return true
     }).catch(err => {
+      console.log(err.response)
       toast.error(err.response.data.error)
       return false
     }).finally(async () => {
