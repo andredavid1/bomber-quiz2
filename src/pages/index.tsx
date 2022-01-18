@@ -42,14 +42,14 @@ Home.getInitialProps = async (ctx: NextPageContext) =>  {
 
       if(!response.data.success) {
         if(ctx.res){
-          ctx.res.writeHead(401, { Location: '/login' })
+          ctx.res.writeHead(401, { Location: `${process.env.APP_URL}/login` })
           ctx.res.end();
           return
         }
       }
     } else {
       if(ctx.res){
-        ctx.res.writeHead(401, { Location: '/login' })
+        ctx.res.writeHead(401, { Location: `${process.env.APP_URL}/login` })
         ctx.res.end();
         return
       }
