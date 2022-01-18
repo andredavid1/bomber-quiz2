@@ -98,10 +98,8 @@ export default async function handler(
           return res.status(500).json({ success: false, error: 'Erro na conexão com o servidor.' });
         }
       }
-      break;
   
     default:
       return res.status(405).json({ success: false, error: 'Método não suportado.'})
-      break;
   }  
 }

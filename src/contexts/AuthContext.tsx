@@ -1,8 +1,8 @@
 import axios from "axios";
-import { getCookie, removeCookies } from "cookies-next";
-import useConfig from "hooks/useConfig";
 import Router from "next/router";
 import { createContext, ReactNode, useState } from "react";
+import { getCookie } from "cookies-next";
+import useConfig from "hooks/useConfig";
 import { toast } from "react-toastify";
 
 interface IUserLogged {
@@ -47,7 +47,15 @@ export const AuthProvider = ({children}: IAuthProviderProps) => {
   const logout = async (): Promise<void> => {
     toggleLoading(true);
 
-    removeCookies('tokenBomberQuiz')
+    await axios.post('/api/auth/logout', null).then(response => {
+      console.log(response.data)
+
+      Router.push('/login');
+    }).catch(err => {
+      toast.error(err.response.data.error)
+    }).finally(async () => {
+      toggleLoading(false)
+    })
 
     toggleLoading(false);
 

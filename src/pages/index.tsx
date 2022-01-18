@@ -22,7 +22,7 @@ const Home = () => {
   )
 }
 
-Home.getInitialProps = async (ctx: NextPageContext) =>  {
+export async function getServerSideProps (ctx: NextPageContext) {
   let apiUrl = process.env.API_URL;
 
   if(!apiUrl) {
@@ -41,18 +41,20 @@ Home.getInitialProps = async (ctx: NextPageContext) =>  {
       })
 
       if(!response.data.success) {
-        if(ctx.res){
-          ctx.res.writeHead(401, { Location: `${process.env.APP_URL}/login` })
-          ctx.res.end();
-          return
+        return {
+          redirect: {
+            destination: '/login',
+            permanent: false,
+          },
         }
       }
     } else {
-      if(ctx.res){
-        ctx.res.writeHead(401, { Location: `${process.env.APP_URL}/login` })
-        ctx.res.end();
-        return
-      }
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false,
+        },
+      }      
     }
   }
 

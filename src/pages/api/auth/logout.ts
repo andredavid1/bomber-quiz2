@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { connectDB } from 'lib/mongodb';
+import { removeCookies } from 'cookies-next';
 import AppError from 'errors/AppError';
 
 interface IResponse {
@@ -16,7 +16,14 @@ export default async function handler(
   switch (method) {
     case "POST":
       try {
-        await connectDB();
+        removeCookies('tokenBomberQuiz', {
+          req,
+          res,
+          domain: process.env.DOMAIN,
+          path: "/",
+          maxAge: 60 * 60, //1 hour
+          sameSite: "lax",
+        })
     
         res.status(200).json({ success: true });
       } catch (err: any) {
